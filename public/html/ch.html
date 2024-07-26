@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Valorant</h1>
+    <label for="hisid">Enter his his:</label>
+    <input type="text" id="hisid" name="hisid">
+    <button id="connect" onclick="connectt()">Connect</button>
+</body>
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+<script>
+    var con;
+    const peer = new Peer('vyom',{
+    host: '/',
+    port: '9000',
+    path: '/myapp'
+    });
+
+    peer.on('open', id => {
+        console.log('My peer ID is: ' + id);
+    });
+
+    function connectt(){
+        var hisid = document.getElementById('hisid').value;
+         con = peer.connect(hisid);
+
+        con.on('open', () => {
+            con.send('i had it once, i lost it all, i lost it all');
+            console.log('Sent');
+
+        });
+    }
+
+    window.onbeforeunload = () => {
+            con.close();
+        };
+     
+    peer.on('connection', conn => {
+        conn.on('data', data => {
+            console.log('Received', data);
+        });
+        conn.on('close', () => {
+            console.log('Connection closed');
+        });
+
+
+    });
+
+
+</script>
+</html>

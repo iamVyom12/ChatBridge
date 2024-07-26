@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBridge - Chat Only</title>
+    <link rel="stylesheet" href="/css/chat-only.css">
+</head>
+<body>
+    <header>
+        <h1>ChatBridge</h1>
+    </header>
+    <div class="chat-container">
+        <div class="chat-window" id="chat-window">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="message-input" placeholder="Type your message here...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+</body>
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat-only.js"></script>
+</html>

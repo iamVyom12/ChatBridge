@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to ChatBridge</title>
+    <link rel="stylesheet" href="/css/lobby.css" />
+  </head>
+  <body>
+    <header>
+      <h1 style="position: relative; left: 45%">ChatBridge</h1>
+    </header>
+
+        <div class="container">
+          <h2>ChatBridge</h2>
+          <div>
+            <label for="peerId">Enter Peer Id:</label>
+            <input type="text" id="peerId" placeholder="Enter Peer Id" />
+            <button onclick="createLobby()">Create Lobby</button>
+          </div>
+          <div>
+            <label for="peerIdToConnect">Enter Peer Id to Connect:</label>
+            <input
+              type="text"
+              id="peerIdToConnect"
+              placeholder="Enter Peer Id to Connect"
+            />
+            <button onclick="connectToPeer()">Connect to Peer</button>
+          </div>
+        </div>
+    
+  </body>
+
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <script src="/js/lobby.js"></script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Preview</title>
+  <link rel="stylesheet" href="/css/preview.css">
+</head>
+<body>
+  <div class="preview-container">
+    <video id="previewVideo" autoplay></video>
+    <div class="form-container">
+      <div class="controls">
+        <button id="previewMuteButton" onclick="togglePreviewMute()">Mute</button>
+        <button id="previewVideoButton" onclick="togglePreviewVideo()">Stop Video</button>
+      </div>
+      <form id="userInfoForm">
+        <input type="text" id="username" placeholder="Enter your name" required>
+        <div class="select-container">
+          <select id="gender" required>
+            <option value="" data-icon="">Select your gender</option>
+            <option value="male" data-icon="&#x2642;">Male</option>
+            <option value="female" data-icon="&#x2640;">Female</option>
+            <option value="other" data-icon="&#x26A7;">Other</option>
+          </select>
+        </div>
+        <button type="submit">Continue</button>
+      </form>
+    </div>
+  </div>
+  <script src="/js/preview.js"></script>
+</body>
+</html>

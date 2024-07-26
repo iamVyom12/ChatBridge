@@ -1,0 +1,8 @@
+/node_modules
+/.vscode
+.env
+ch.js
+/index.js
+temp_codes.txt
+tempCodeRunnerFile.js
+to-do.txt

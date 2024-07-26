@@ -1,0 +1,308 @@
+
+body {
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: "Consolas", sans-serif;
+    background-color: #f0f0f0;
+  }
+  header {
+    background-color: #333;
+    height: 50px;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-self: start;
+  }
+
+  #main-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+
+  #exit {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  #video-container {
+    padding: 0;
+    margin: 5px;
+    height: 85vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #local-vid,
+  #remote-vid {
+    box-sizing: border-box;
+    flex: 1;
+    background-color: rgb(181, 176, 177);
+    margin: 5px 0px;
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  #local-video,
+  #remote-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #chat-container {
+    margin-top: 10px;
+    height: 81vh;
+    width: 50%;
+    background-color: #E9ECEF;
+  }
+  
+
+
+.name {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 1em;
+}
+
+/*chat*/
+/* Additional styles for chat */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  width: fit-content;
+  max-width: 80%;
+}
+
+.chat-message.user {
+  background-color: #d1e7dd;
+  align-self: flex-start;
+}
+
+.chat-message.me {
+  background-color: #0d6efd;
+  color: white;
+  align-self: flex-end;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+#message-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#send-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#send-button:hover {
+  background-color: #0b5ed7;
+}
+
+/* card */
+.utilbar {
+  display: flex;
+  position: relative;
+  height: 8vh;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
+
+.card {
+  position: relative;
+  padding: 0.5rem;
+  background: rgb(204,225,229);
+  background: linear-gradient(to right, rgb(204,225,229), rgb(153,190,204));
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* max-width: 150px; */
+  border-radius: 10px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content : space-between;
+  gap: 0.5rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.title span {
+  position: relative;
+  padding: 0.25rem; /* reduced padding */
+  background-color: #10B981;
+  width: 1rem; /* reduced size */
+  height: 1rem; /* reduced size */
+  border-radius: 9999px;
+}
+
+
+.title-text {
+  margin-left: 0.5rem;
+  color: #374151;
+  font-size: 16px; /* reduced font size */
+  font-weight: 700;
+}
+
+
+
+.data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.data p {
+  margin-top: 0.5rem; /* reduced margin */
+  margin-bottom: 0.5rem; /* reduced margin */
+  color: #1F2937;
+  font-size: 1.25rem; /* reduced font size */
+  /* line-height: 1.75rem; */
+  font-weight: 700;
+  text-align: left;
+}
+
+/* button */
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  background-color: white ;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #1f387e;
+  box-shadow: 0 0 0 2px #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #1f387e;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #c5e5e4;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #1f387e;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px greenyellow;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+

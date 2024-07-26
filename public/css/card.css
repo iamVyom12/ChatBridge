@@ -1,0 +1,95 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    justify-content: center;
+  }
+  
+  input,
+  button {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+  }
+  button {
+    background-color: #4caf50; /* Green */
+    border: none;
+    color: white;
+    transition-duration: 0.4s;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .card {
+    width: 70%;
+    height: 60%;
+    border-radius: 4px;
+    display: flex;
+    gap: 2px;
+    padding: 0.4em;
+    align-items: center; /* Ensure vertical alignment */
+    transition: all 0.5s ease;
+  }
+  
+  .card > div {
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.5s;
+    border: 1px solid #222831;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card > div:hover {
+    flex: 4;
+  }
+  
+  .card div div {
+    min-width: 14em;
+    padding: 0.5em;
+    text-align: center;
+    transition: all 0.5s;
+    text-transform: uppercase;
+    color: #ff568e;
+    letter-spacing: 0.1em;
+  }
+  
+  /* .card div:hover div {
+      transform: rotate(0);  
+  } */
+  
+  #chatRandom .hiddenContent {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      transition-delay: 1s;
+  }
+  
+  .card > #chatRandom:hover .hiddenContent {
+    display: block;
+    opacity: 1;
+  }
+  
+  .card > div:hover > .title {
+    display: none;
+  }
+  

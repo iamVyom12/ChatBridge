@@ -1,0 +1,130 @@
+/* Add styles for the preview container */
+.preview-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+}
+
+#previewVideo {
+  width: 50%;
+  max-width: 640px;
+  border-radius: 10px;
+  margin-right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#previewMuteButton {
+  background-color: #f44336;
+  color: white;
+}
+
+#previewVideoButton {
+  background-color: #2196F3;
+  color: white;
+}
+
+.controls button:hover {
+  opacity: 0.8;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 40%;
+  max-width: 400px;
+}
+
+#userInfoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#userInfoForm input,
+#userInfoForm select,
+#userInfoForm button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#userInfoForm button {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#userInfoForm button:hover {
+  background-color: #45a049;
+}
+
+#userInfoForm select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 30px;
+  position: relative;
+  background: url('/public/images/down-arrow.png') no-repeat right 10px center;
+}
+
+#userInfoForm select option {
+  background: white;
+  color: black;
+}
+
+#userInfoForm select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+#userInfoForm option {
+  display: flex;
+  align-items: center;
+}
+
+#userInfoForm option svg {
+  margin-left: 10px;
+}
+
+/* Custom styles for the selected option with icons */
+.select-container {
+  position: relative;
+}
+
+.select-container select {
+  width: 100%;
+  padding-right: 50px; /* Adjust to provide space for the icon */
+}
+
+.select-container::after {
+  content: attr(data-icon);
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px; /* Adjust icon size */
+}

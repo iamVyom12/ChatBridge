@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatBridge</title>
+    <link rel="stylesheet" href="/css/chat-random.css" />
+  </head>
+  <body>
+    <header>
+      <h1 style="position: relative; left: 40%; bottom: 5%">ChatBridge</h1>
+      <button id="exit">Exit</button>
+    </header>
+    <div id="main-container">
+      <div id="video-container">
+        <div id="local-vid">
+          <div class="name">User</div>
+          <video id="local-video" muted autoplay></video>
+        </div>
+        <div id="remote-vid">
+          <div class="name">User2</div>
+          <video id="remote-video" muted autoplay></video>
+        </div>
+      </div>
+      <div id="chat-container">
+        <div class="utilbar">
+          <div class="card">
+            <div class="title">
+              <span> </span>
+              <p class="title-text">online</p>
+            </div>
+            <div class="data">
+              <p>39,500</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">
+              <p class="title-text">You're paired with :</p>
+             </div>
+          </div>
+          <button class="animated-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="arr-2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+            <span class="text">Skip</span>
+            <span class="circle"></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="arr-1"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div class="chat-window" id="chat-window">
+          <!-- Chat messages will be appended here -->
+        </div>
+        <div class="input-area">
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Type your message here..."
+          />
+          <button id="send-button">Send</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <!-- <script>
+    function adjustVideoSize(video) {
+      if (video.videoWidth > video.videoHeight) {
+        video.style.width = '100%';
+        video.style.height = 'auto';
+      } else {
+        video.style.width = 'auto';
+        video.style.height = '100%';
+      }
+    }
+    
+    const localVideo = document.getElementById('local-video');
+    localVideo.onloadedmetadata = function() {
+      adjustVideoSize(localVideo);
+    };
+    
+    const remoteVideo = document.getElementById('remote-video');
+    remoteVideo.onloadedmetadata = function() {
+      adjustVideoSize(remoteVideo);
+    };
+  </script> -->
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/chat-random.js"></script>
+</html>
