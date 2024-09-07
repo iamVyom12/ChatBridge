@@ -16,13 +16,16 @@ const servers = {
     },
   ],
 };
+let call;
 
 const localVideo = document.getElementById("local-video");
 const messageInput = document.getElementById("message-input");
 const sendButton = document.getElementById("send-button");
 const chatWindow = document.getElementById("chat-window");
 const remoteVideo = document.getElementById("remote-video");
-
+const activeUserCount = document.getElementById("activeUserCount");
+const pairedUserId = document.getElementById("pairedUserId");
+const skipButton = document.getElementById("skipButton");
 
 document.addEventListener("DOMContentLoaded", () => {
   startLocalVideo(localVideo);
@@ -31,24 +34,27 @@ document.addEventListener("DOMContentLoaded", () => {
   // const peerIdCon = urlParams.get("peerIdCon");
   const peer = initializeAndConfigurePeer();
 
-
   socket.on("matchFound", (peerId) => {
-    console.log("match found with peer", peerId);
+    // console.log("match found with peer", peerId);
+    pairedUserId.append(peerId.substring(0, 7));
+    
     makeCall(peerId, peer);
     conn = peer.connect(peerId);
     conn.on("open", () => {
       console.log("connected to peer : ready to chat");
     });
     conn.on("data", (data) => {
-      receiveMessage(data,conn.peer);
+      receiveMessage(data, conn.peer);
     });
   });
 
+  socket.on("peerCount", (count) => {
+    activeUserCount.innerText = count;
+  });
 
   document.getElementById("exit").addEventListener("click", () => {
     window.location.href = "/";
   });
-
 
   sendButton.addEventListener("click", function () {
     const message = messageInput.value.trim();
@@ -65,11 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  skipButton.addEventListener("click", () => {
+    call.close();
+    conn.close();
+    pairedUserId.innerHTML = "";
+    chatWindow.innerHTML = "";
+    socket.emit("joinQueue", peer.id);
+  });
+
 
 });
 
 window.onbeforeunload = () => {
-  peer.disonnect();
+  conn.close();
+  call.close();
 };
 
 const appendMessage = (sender, message) => {
@@ -78,11 +93,11 @@ const appendMessage = (sender, message) => {
   messageDiv.innerText = message;
   chatWindow.appendChild(messageDiv);
   chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to bottom
-}
+};
 
-const receiveMessage = (message,peerId) => {
-  appendMessage('user', `${peerId}: ${message}`);
-}
+const receiveMessage = (message, peerId) => {
+  appendMessage("user", `${peerId}: ${message}`);
+};
 
 const startLocalVideo = async (localVideo) => {
   try {
@@ -95,7 +110,7 @@ const startLocalVideo = async (localVideo) => {
   } catch (error) {
     console.error("Error accessing the media devices.", error);
   }
-}
+};
 
 const makeCall = (peerId, peer) => {
   if (!peer) {
@@ -108,12 +123,11 @@ const makeCall = (peerId, peer) => {
     return;
   }
 
-  const call = peer.call(peerId, localStream);
+  call = peer.call(peerId, localStream);
 
   call.on("error", (error) => {
     console.error("Call failed to connect", error);
   });
-
 
   if (!call) {
     console.error("Call failed to initialize");
@@ -129,7 +143,7 @@ const makeCall = (peerId, peer) => {
     console.log("Call has been closed");
     remoteVideo.srcObject = null;
   });
-}
+};
 
 const initializeAndConfigurePeer = () => {
   const peer = new Peer(undefined, {
@@ -145,38 +159,46 @@ const initializeAndConfigurePeer = () => {
   });
 
   /**
- * Event listener for incoming calls.
- * 
- * This event is triggered when a remote peer initiates a call to this peer.
- * The call is answered with the local media stream, and event listeners are set up
- * to handle the remote media stream and call closure.
- * 
- * @param {Object} call - The call object representing the incoming call.
- * 
- * @event
- * @listens Peer#call
- */
-  peer.on("call", (call) => {
-    call.answer(localStream);
+   * Event listener for incoming calls.
+   *
+   * This event is triggered when a remote peer initiates a call to this peer.
+   * The call is answered with the local media stream, and event listeners are set up
+   * to handle the remote media stream and call closure.
+   *
+   * @param {Object} call - The call object representing the incoming call.
+   *
+   * @event
+   * @listens Peer#call
+   */
+  peer.on("call", (call1) => {
+    call = call1;
 
-    call.on("stream", (stream) => {
+    call1.answer(localStream);
+
+    call1.on("stream", (stream) => {
       remoteVideo.srcObject = stream;
+      pairedUserId.append(call1.peer.substring(0, 7));
     });
 
-    call.on("close", () => {
+    call1.on("close", () => {
       remoteVideo.srcObject = null;
+      pairedUserId.innerHTML = "";
+      socket.emit("joinQueue", peer.id);
     });
   });
-  
+
   peer.on("connection", (conection) => {
     conn = conection;
     conn.on("data", (data) => {
-      receiveMessage(data,conn.peer);
+      receiveMessage(data, conn.peer);
+    });
+    conn.on("close", () => {
+      chatWindow.innerHTML = "";
     });
   });
 
   peer.on("disconnected", () => {
-  // console.log("disconnected");
+    // console.log("disconnected");
     peer.reconnect();
   });
 

@@ -5,14 +5,17 @@ const socket = require('socket.io');
 const path = require('path');
 const http = require('http');
 const server = http.createServer(app);
+
 const io = socket(server);
 const chatRandomio = io.of('/chat-random');
 
 const { PeerServer } = require('peer');
 const peerServer = PeerServer({ port: process.env.PEER_PORT || 9000, path: '/myapp' });
+
 const Queue = require('./Queue');
 const userQueue = new Queue();
 const chatUsersQueue = new Queue();
+const activeUsers = new Set();//for chat-random
 
 const indexRoutes = require('./src/routes/index');
 const apiRoutes = require('./src/routes/api');
@@ -45,24 +48,26 @@ peerServer.on('disconnect', (client) => {
 // Socket.io events
 chatRandomio.on('connection', (socket) => {
     // console.log('New client , namespace: chat-random connected');
+    activeUsers.add(socket.id);
+    chatRandomio.emit('peerCount', activeUsers.size);
+
     socket.on('joinQueue', (peerId) => {
         if (userQueue.isEmpty()) {
             userQueue.enqueue({ peerId, socketId: socket.id });
-            console.log('Queue size:', userQueue.size());
+            // console.log('Queue size:', userQueue.size());
         } else {
             const match = userQueue.dequeue();
-            console.log("Queue size after dequeue:", userQueue.size());
+            // console.log("Queue size after dequeue:", userQueue.size());
             //chatRandomio.to(socket.id).emit('matchFound', match.peerId);
             chatRandomio.to(match.socketId).emit('matchFound', peerId);
         }
     });
 
     socket.on('disconnect', () => {
-        // console.log('Client disconnected');
+        activeUsers.delete(socket.id);
+        chatRandomio.emit('peerCount', activeUsers.size);
     });
 });
-
-
 
 
 io.on('connection', (socket) => {
