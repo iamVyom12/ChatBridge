@@ -4,7 +4,8 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: "Consolas", sans-serif;
+    overflow: hidden;
+    font-family: "Popins", sans-serif;
     background-color: #f0f0f0;
   }
   header {
@@ -17,6 +18,7 @@ body {
     display: flex;
     flex-direction: row;
     align-self: start;
+    place-items: center;
   }
 
   #main-container {
@@ -39,7 +41,7 @@ body {
   #video-container {
     padding: 0;
     margin: 5px;
-    height: 85vh;
+    height: 87vh;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -91,7 +93,7 @@ body {
 .chat-window {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 100px);
+  height: calc(100% - 105px);
   overflow-y: auto;
   padding: 10px;
   background-color: #f8f8f8;
