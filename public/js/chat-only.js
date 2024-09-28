@@ -13,9 +13,10 @@ const servers = {
 let con;
 
 let peer = new Peer(undefined, {
-    host: "/",
-    port: 9000,
+    host: 'chatbridge-lw0b.onrender.com',
+    port: 443,
     path: "/myapp",
+    secure: true,
     config: servers,
   });
 

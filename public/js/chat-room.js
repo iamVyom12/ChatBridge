@@ -40,9 +40,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("Peer is active");
       await startLocalVideo();
       peer = new Peer(undefined, {
-        host: "/",
-        port: 9000,
+        host: 'chatbridge-lw0b.onrender.com',
+        port: 443,
         path: "/myapp",
+        secure: true,
+        config: servers
       });
 
       peer.on("open", async (id) => {
@@ -66,9 +68,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("Peer is not active");
       await startLocalVideo();
       peer = new Peer(roomID, {
-        host: "/",
-        port: 9000,
+        host: 'chatbridge-lw0b.onrender.com',
+        port: 443,
         path: "/myapp",
+        secure: true,
         config: servers
       });
 

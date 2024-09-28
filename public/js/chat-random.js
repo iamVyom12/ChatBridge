@@ -147,8 +147,9 @@ const makeCall = (peerId, peer) => {
 
 const initializeAndConfigurePeer = () => {
   const peer = new Peer(undefined, {
-    host: "/",
-    port: 9000,
+    host: 'chatbridge-lw0b.onrender.com',
+    secure : true,
+    port: 443,
     path: "/myapp",
     config: servers,
   });
