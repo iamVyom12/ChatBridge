@@ -10,7 +10,12 @@ const io = socket(server);
 const chatRandomio = io.of('/chat-random');
 
 const { PeerServer } = require('peer');
-const peerServer = PeerServer({ port: process.env.PEER_PORT || 9000, path: '/myapp' });
+const peerServer = PeerServer({ 
+     port: process.env.PEER_PORT || 9000,
+     path: '/myapp',
+     proxied: true,
+     allow_discovery: true,
+     });
 
 const Queue = require('./Queue');
 const userQueue = new Queue();
@@ -23,6 +28,7 @@ const apiRoutes = require('./src/routes/api');
 app.use(express.static(path.resolve(__dirname, './public')));
 app.use('/', indexRoutes);
 app.use('/', apiRoutes);
+app.use('/myapp', peerServer);
 
 // let activePeers = {};
 // let rooms = {};
@@ -44,6 +50,11 @@ peerServer.on('disconnect', (client) => {
         }
     }
 });
+
+peerServer.on('error', (error) => {
+    console.error('PeerServer error:', error);
+});
+
 
 // Socket.io events
 chatRandomio.on('connection', (socket) => {
