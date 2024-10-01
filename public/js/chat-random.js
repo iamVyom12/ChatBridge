@@ -7,14 +7,12 @@ let peerConnection;
 let uid = String(Math.floor(Math.random() * 1000));
 const servers = {
   iceServers: [
-    {
-      urls: [
-        "stun:stun1.l.google.com:19302",
-        "stun:stun2.l.google.com:19302",
-        "stun:stun3.l.google.com:19302",
-      ],
-    },
-  ],
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun3.l.google.com:19302" },
+    { urls: "stun:stun4.l.google.com:19302" },
+  ]
 };
 let call;
 
@@ -147,11 +145,11 @@ const makeCall = (peerId, peer) => {
 
 const initializeAndConfigurePeer = () => {
   const peer = new Peer(undefined, {
-    host: 'chatbridge-lw0b.onrender.com',
-    secure : true,
-    port: 443,
+    host: window.location.hostname,
+    port: window.location.port || (window.location.protocol === 'https:' ? 443 : 80),
     path: "/myapp",
     config: servers,
+    debug: 3
   });
 
   peer.on("open", (id) => {

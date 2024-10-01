@@ -9,14 +9,12 @@ const roomID = urlParams.get("roomID");
 
 const servers = {
   iceServers: [
-    {
-      urls: [
-        "stun:stun1.l.google.com:19302",
-        "stun:stun2.l.google.com:19302",
-        "stun:stun3.l.google.com:19302",
-      ],
-    },
-  ],
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun3.l.google.com:19302" },
+    { urls: "stun:stun4.l.google.com:19302" },
+  ]
 };
 
 async function startLocalVideo() {
@@ -40,10 +38,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("Peer is active");
       await startLocalVideo();
       peer = new Peer(undefined, {
-        host: 'chatbridge-lw0b.onrender.com',
-        port: 443,
+        host: window.location.hostname,
+        port: window.location.port || (window.location.protocol === 'https:' ? 443 : 80),
         path: "/myapp",
-        secure: true,
         config: servers
       });
 
@@ -72,7 +69,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         port: 443,
         path: "/myapp",
         secure: true,
-        config: servers
+        config: servers,
+        debug: 3
       });
 
 
