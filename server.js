@@ -9,13 +9,7 @@ const server = http.createServer(app);
 const io = socket(server);
 const chatRandomio = io.of('/chat-random');
 
-const { PeerServer } = require('peer');
-const peerServer = PeerServer({ 
-     port: process.env.PEER_PORT || 9000,
-     path: '/myapp',
-     proxied: true,
-     allow_discovery: true,
-     });
+const { ExpressPeerServer } = require('peer');
 
 const Queue = require('./Queue');
 const userQueue = new Queue();
@@ -28,7 +22,14 @@ const apiRoutes = require('./src/routes/api');
 app.use(express.static(path.resolve(__dirname, './public')));
 app.use('/', indexRoutes);
 app.use('/', apiRoutes);
-app.use('/myapp', peerServer);
+
+// Create PeerServer and mount it
+const peerServer = ExpressPeerServer(server, {
+  debug: true,
+  path: '/peerjs'
+});
+
+app.use(peerServer);
 
 // let activePeers = {};
 // let rooms = {};
