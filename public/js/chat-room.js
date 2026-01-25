@@ -2,7 +2,7 @@ let videoIdCounter = 0;
 let peer;
 let con = [];
 let localStream;
-let socket = io();
+let socket = io("/chat-room");
 // let remoteStreams = {};
 const urlParams = new URLSearchParams(window.location.search);
 const roomID = urlParams.get("roomID");
@@ -40,8 +40,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       peer = new Peer(undefined, {
         host: window.location.hostname,
         port: window.location.port || (window.location.protocol === 'https:' ? 443 : 80),
-        path: "/myapp",
-        config: servers
+        path: "/peerjs",
+        config: servers,
+        secure: window.location.protocol === 'https:',
+        debug: 3
       });
 
       peer.on("open", async (id) => {
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       peer = new Peer(roomID, {
         host: 'chatbridge-lw0b.onrender.com',
         port: 443,
-        path: "/myapp",
+        path: "/peerjs",
         secure: true,
         config: servers,
         debug: 3

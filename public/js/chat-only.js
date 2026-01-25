@@ -1,4 +1,4 @@
-let socket = io();
+let socket = io("/chat-only");
 const servers = {
     iceServers: [
         { urls: "stun:stun.l.google.com:19302" },
@@ -13,8 +13,9 @@ let con;
 let peer = new Peer(undefined, {
     host: window.location.hostname,
     port: window.location.port || (window.location.protocol === 'https:' ? 443 : 80),
-    path: "/myapp",
+    path: "/peerjs",
     config: servers,
+    secure: window.location.protocol === 'https:',
     debug: 3
   });
 
