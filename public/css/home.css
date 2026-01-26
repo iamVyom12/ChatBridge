@@ -62,7 +62,8 @@ nav .Logo {
 }
 
 .slide {
-  width: 100%;
+  flex: 0 0 33.333%;
+  width: 33.333%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;

@@ -1,7 +1,2 @@
-const activePeers = {};
-const rooms = {};
-
-module.exports = {
-    activePeers,
-    rooms,
-};
+export const activePeers = {};
+export const rooms = {};
